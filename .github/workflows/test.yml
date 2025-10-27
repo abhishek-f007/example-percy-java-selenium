@@ -22,11 +22,9 @@ jobs:
           restore-keys: v1/${{ runner.os }}/java-8/
       - run: make install
 
-      - name: 🛠️ Install Percy CLI
-        run: npm install --save-dev @percy/cli
-
-      - name: 📸 Run Tests with Percy
-        # 'make test' is your existing command. We wrap it with 'npx percy exec --'
-        run: npx percy exec -- make test
+      - name: 📸 Install CLI and Run Tests with Percy
+        run: |
+          npm install --save-dev @percy/cli
+          npx percy exec -- make test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
