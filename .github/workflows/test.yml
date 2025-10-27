@@ -10,12 +10,23 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+      - name: ⚙️ Setup Node.js for Percy CLI
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a recent stable version
+
       - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: v1/${{ runner.os }}/java-8/${{ hashFiles('**/package-lock.json') }}
           restore-keys: v1/${{ runner.os }}/java-8/
       - run: make install
-      - run: make test
+
+      - name: 🛠️ Install Percy CLI
+        run: npm install --save-dev @percy/cli
+
+      - name: 📸 Run Tests with Percy
+        # 'make test' is your existing command. We wrap it with 'npx percy exec --'
+        run: npx percy exec -- make test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
