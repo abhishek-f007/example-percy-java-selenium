@@ -1,4 +1,3 @@
-
 # example-percy-java-selenium
 Example app used by the [Percy Java Selenium tutorial](https://docs.percy.io/docs/java-selenium-testing-tutorial) demonstrating Percy's Java Selenium integration.
 
